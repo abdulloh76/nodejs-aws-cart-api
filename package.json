@@ -8,6 +8,9 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "build-lambda": "nest build --webpack --webpackPath webpack.config.js",
+    "deploy-lambda": "npm run build-lambda && cd cdk_deployment && cdk deploy",
+    "destroy-lambda": "cd cdk_deployment && cdk destroy",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -28,14 +31,17 @@
     "@nestjs/jwt": "^10.1.0",
     "@nestjs/passport": "^10.0.0",
     "@nestjs/platform-express": "^10.0.3",
+    "@nestjs/typeorm": "^10.0.2",
     "aws-lambda": "^1.0.7",
     "helmet": "^7.0.0",
+    "mysql2": "^3.10.3",
     "passport": "^0.6.0",
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

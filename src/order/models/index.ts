@@ -5,16 +5,20 @@ export type Order = {
   userId: string;
   cartId: string;
   items: CartItem[]
-  payment: {
-    type: string,
-    address?: any,
-    creditCard?: any,
-  },
-  delivery: {
-    type: string,
-    address: any,
-  },
+  payment: Payment,
+  delivery: Delivery,
   comments: string,
   status: string;
   total: number;
+}
+
+export type Payment = {
+  type: string,
+  address?: any,
+  creditCard?: any,
+}
+
+export type Delivery = {
+  type: string,
+  address: any,
 }
