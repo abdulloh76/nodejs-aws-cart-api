@@ -1,28 +1,18 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { ProductEntity } from './Product.entity';
+import { Entity, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
 import { CartEntity } from './Cart.entity';
-import { OrderEntity } from './Order.entity';
 
 @Entity()
 export class CartItemEntity {
-  @Column({nullable: false})
+  @PrimaryColumn('uuid')
   cart_id: string;
 
-  @Column()
+  @PrimaryColumn('uuid')
   product_id: string;
 
   @Column()
   count: number;
 
-  @ManyToOne(() => ProductEntity, (product) => product.id)
-  @JoinColumn({name: 'product_id'})
-  product: ProductEntity[];
-
   @ManyToOne(() => CartEntity, (cart) => cart.id)
   @JoinColumn({name: 'cart_id'})
-  cart: CartEntity[];
-
-  @ManyToOne(() => OrderEntity, (order) => order.id)
-  @JoinColumn({name: 'order_id'})
-  order: OrderEntity[];
+  cart: CartEntity;
 }

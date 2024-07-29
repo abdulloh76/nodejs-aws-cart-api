@@ -9,10 +9,10 @@ export class OrderEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @Column({nullable: false})
+  @Column()
   user_id: string;
 
-  @Column({nullable: false})
+  @Column()
   cart_id: string;
 
   @Column({type: 'jsonb'})
@@ -33,15 +33,11 @@ export class OrderEntity {
   @Column()
   total: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.orders)
-  @JoinColumn({name: 'user_id'})
-  product: UserEntity[];
-
   @ManyToOne(() => CartEntity, (cart) => cart.orders)
   @JoinColumn({name: 'cart_id'})
-  cart: CartEntity[];
+  cart: CartEntity;
 
-  @ManyToOne(() => CartItemEntity, (cartItems) => cartItems.order)
-  @JoinColumn({name: 'cart_item_id'})
-  order: CartItemEntity[];
+  @ManyToOne(() => UserEntity, (user) => user.orders)
+  @JoinColumn({name: 'user_id'})
+  user: UserEntity;
 }
