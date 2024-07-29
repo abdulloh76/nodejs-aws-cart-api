@@ -3,32 +3,26 @@ import { Injectable } from '@nestjs/common';
 import { v4 } from 'uuid';
 
 import { User } from '../models';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/entities/User.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>
-  ) {}
+  private readonly users: Record<string, User>;
 
-  async findOne(userId: string): Promise<UserEntity> {
-    const user = this.userRepository.findOneBy({ id: userId });
-    return user;
+  constructor() {
+    this.users = {}
   }
 
-  async createOne({ name, password }: User): Promise<UserEntity> {
-    const user = await this.userRepository.findOneBy({ login: name });
+  findOne(userId: string): User {
+    return this.users[ userId ];
+  }
 
-    if (user) {
-      throw new Error('User already exists');
-    }
+  createOne({ name, password }: User): User {
     const id = v4();
-    const newUser = { id, login: name, password };
+    const newUser = { id: name || id, name, password };
 
-    return this.userRepository.create(newUser);
+    this.users[ id ] = newUser;
+
+    return newUser;
   }
 
 }
