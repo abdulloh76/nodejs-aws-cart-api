@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { CartEntity } from './Cart.entity';
 
 @Entity()
@@ -11,6 +11,12 @@ export class CartItemEntity {
 
   @Column()
   count: number;
+
+  @CreateDateColumn({nullable: false})
+  created_at: Date;
+
+  @UpdateDateColumn({nullable: false})
+  updated_at: Date;
 
   @ManyToOne(() => CartEntity, (cart) => cart.id)
   @JoinColumn({name: 'cart_id'})

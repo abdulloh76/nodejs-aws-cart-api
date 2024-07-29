@@ -1,7 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, RelationId, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { UserEntity } from './User.entity';
 import { CartEntity } from './Cart.entity';
-import { CartItemEntity } from './CartItem.entity';
 import { Delivery, Payment } from 'src/order';
 
 @Entity()
@@ -32,6 +31,12 @@ export class OrderEntity {
 
   @Column()
   total: number;
+
+  @CreateDateColumn({nullable: false})
+  created_at: Date;
+
+  @UpdateDateColumn({nullable: false})
+  updated_at: Date;
 
   @ManyToOne(() => CartEntity, (cart) => cart.orders)
   @JoinColumn({name: 'cart_id'})
