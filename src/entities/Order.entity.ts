@@ -6,7 +6,7 @@ import { Delivery, Payment } from 'src/order';
 @Entity()
 export class OrderEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   user_id: string;

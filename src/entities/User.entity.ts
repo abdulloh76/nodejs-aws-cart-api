@@ -5,7 +5,7 @@ import { CartEntity } from './Cart.entity';
 @Entity()
 export class UserEntity  {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column({nullable: false})
   login: string;
