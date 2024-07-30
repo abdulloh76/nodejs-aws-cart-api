@@ -11,12 +11,14 @@ import { CartEntity } from './entities/Cart.entity';
 import { OrderEntity } from './entities/Order.entity';
 import { UserEntity } from './entities/User.entity';
 import { ProductEntity } from './entities/Product.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     AuthModule,
     CartModule,
     OrderModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
