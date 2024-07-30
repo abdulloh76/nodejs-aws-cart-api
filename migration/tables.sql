@@ -24,6 +24,20 @@ create table
   );
 
 create table
+  products (
+    id uuid not null constraint products_pk primary key,
+    title text not null,
+    description text not null,
+    price numeric not null,
+    created_at timestamp
+    with
+      time zone not null,
+      updated_at timestamp
+    with
+      time zone not null
+  );
+
+create table
   cart_items (
     id uuid not null constraint cart_items_pk primary key,
     cart_id uuid not null,

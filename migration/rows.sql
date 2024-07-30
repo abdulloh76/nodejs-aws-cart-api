@@ -41,6 +41,63 @@ values
   );
 
 insert into
+  products (
+    id,
+    title,
+    description,
+    price,
+    created_at,
+    updated_at
+  )
+values
+  (
+    '364a6661-a67f-47db-a61d-5b50891c36d3',
+    'T-Shirt',
+    'A white t-shirt',
+    10,
+    now (),
+    now ()
+  );
+
+insert into
+  products (
+    id,
+    title,
+    description,
+    price,
+    created_at,
+    updated_at
+  )
+values
+  (
+    '72c88883-5948-4f68-b32a-c3c3ba987ebb',
+    'T-Shirt',
+    'A black t-shirt',
+    30,
+    now (),
+    now ()
+  );
+
+insert into
+  products (
+    id,
+    title,
+    description,
+    price,
+    created_at,
+    updated_at
+  )
+values
+  (
+    'c782c1d6-bc3e-4f5e-a7a6-60c9f8569b02',
+    'T-Shirt',
+    'A green t-shirt',
+    40,
+    now (),
+    now ()
+  );
+
+insert into
   cart_items (
     id,
     cart_id,
@@ -53,7 +110,7 @@ values
   (
     '86a4375c-1fe6-46ca-9a56-a319d8a5da90',
     'a7ff0467-c961-41bb-af73-461dcf63ab78',
-    'b9544d87-a76b-4810-b44b-acf13b7645a0',
+    '364a6661-a67f-47db-a61d-5b50891c36d3',
     1,
     now (),
     now ()
@@ -72,7 +129,7 @@ values
   (
     'a9ac04d7-aa09-4a1b-8ff6-ef35eaa96a86',
     'a7ff0467-c961-41bb-af73-461dcf63ab78',
-    'a8d61119-e91a-436e-b837-b1a4a806956d',
+    '72c88883-5948-4f68-b32a-c3c3ba987ebb',
     1,
     now (),
     now ()
@@ -91,7 +148,7 @@ values
   (
     '43446bac-b1fa-4479-bb9f-105a13e25f00',
     'abf9e30c-d064-455e-aefb-a50854c71f62',
-    '6fc5f782-855b-4eda-96fc-902bdde6a230',
+    'c782c1d6-bc3e-4f5e-a7a6-60c9f8569b02',
     1,
     now (),
     now ()
@@ -110,7 +167,7 @@ values
   (
     '3f6c383a-96df-4764-be5c-a990156a25ed',
     'abf9e30c-d064-455e-aefb-a50854c71f62',
-    'f3f064da-9684-4c1c-95e1-6d8446db0aec',
+    '364a6661-a67f-47db-a61d-5b50891c36d3',
     1,
     now (),
     now ()
