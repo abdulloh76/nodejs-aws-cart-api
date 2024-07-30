@@ -15,9 +15,6 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    AuthModule,
-    CartModule,
-    OrderModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -27,15 +24,20 @@ import { ConfigModule } from '@nestjs/config';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [
+        UserEntity,
+        ProductEntity,
         CartItemEntity,
         CartEntity,
         OrderEntity,
-        UserEntity,
-        ProductEntity
       ],
       synchronize: true,
-      ssl: false,
-    })
+      ssl: {
+        rejectUnauthorized: false,
+      }
+    }),
+    AuthModule,
+    CartModule,
+    OrderModule,
   ],
   controllers: [
     AppController,

@@ -4,10 +4,10 @@ import { v4 } from 'uuid';
 
 import { Cart, CartStatuses } from '../models';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CartEntity } from 'src/entities/Cart.entity';
 import { Repository } from 'typeorm';
-import { CartItemEntity } from 'src/entities/CartItem.entity';
-import { ProductEntity } from 'src/entities/Product.entity';
+import { CartEntity } from '../../entities/Cart.entity';
+import { CartItemEntity } from '../../entities/CartItem.entity';
+import { ProductEntity } from '../../entities/Product.entity';
 
 @Injectable()
 export class CartService {

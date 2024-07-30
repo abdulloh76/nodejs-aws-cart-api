@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 
 import { Order } from '../models';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OrderEntity } from 'src/entities/Order.entity';
+import { OrderEntity } from '../../entities/Order.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
