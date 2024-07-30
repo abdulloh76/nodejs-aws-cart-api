@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { UserEntity } from './User.entity';
 import { CartEntity } from './Cart.entity';
-import { Delivery, Payment } from 'src/order';
+import { Delivery, OrderStatuses, Payment } from 'src/order';
 
 @Entity()
 export class OrderEntity {
@@ -23,7 +23,7 @@ export class OrderEntity {
   @Column()
   comments: string;
 
-  @Column({ default: 'PENDING' })
+  @Column({ enum: OrderStatuses, default: OrderStatuses.OPEN })
   status: string;
 
   @Column({ name: 'status_history', type: 'jsonb'})

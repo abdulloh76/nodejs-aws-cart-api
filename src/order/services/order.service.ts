@@ -10,12 +10,23 @@ import { Repository } from 'typeorm';
 export class OrderService {
   constructor(
     @InjectRepository(OrderEntity)
-    private orderRepository: Repository<OrderEntity>
+    private readonly orderRepository: Repository<OrderEntity>
   ) {}
 
-  async findById(orderId: string): Promise<OrderEntity> {
-    const order = this.orderRepository.findOneBy({ id: orderId });
-    return order;
+  async findById(orderId: string): Promise<Order> {
+    const order = await this.orderRepository.findOneBy({ id: orderId });
+    const orderObj: Order = {
+      id: order.id,
+      userId: order.user_id,
+      cartId: order.cart_id,
+      items: order.cart.items,
+      payment: order.payment,
+      delivery: order.delivery,
+      comments: order.comments,
+      status: order.status,
+      total: order.total,
+    }
+    return orderObj;
   }
 
   async create(data: any) {
@@ -31,6 +42,8 @@ export class OrderService {
 
   async update(orderId, data) {
     const order = this.findById(orderId);
+
+    // TODO: there has to be complicated logic for update
 
     if (!order) {
       throw new Error('Order does not exist.');

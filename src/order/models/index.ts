@@ -1,5 +1,14 @@
 import { CartItem } from '../../cart/models';
 
+export enum OrderStatuses {
+  OPEN = 'OPEN',
+  APPROVED = 'APPROVED',
+  CONFIRMED = 'CONFIRMED',
+  SENT = 'SENT',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED',
+}
+
 export type Order = {
   id?: string,
   userId: string;

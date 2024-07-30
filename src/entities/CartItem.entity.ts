@@ -5,6 +5,9 @@ import { ProductEntity } from './Product.entity';
 @Entity()
 export class CartItemEntity {
   @PrimaryColumn('uuid')
+  id: string;
+
+  @PrimaryColumn('uuid')
   cart_id: string;
 
   @PrimaryColumn('uuid')
