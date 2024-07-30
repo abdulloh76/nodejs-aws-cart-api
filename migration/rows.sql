@@ -1,20 +1,22 @@
 insert into
-  users (id, login, password, created_at, updated_at)
+  users (id, name, email, password, created_at, updated_at)
 values
   (
     'fd0ad7e4-f1cf-47bd-9ebc-29e865d61a3c',
     'admin',
+    'admin@mail.com',
     'admin',
     now (),
     now ()
   );
 
 insert into
-  users (id, login, password, created_at, updated_at)
+  users (id, name, email, password, created_at, updated_at)
 values
   (
     'ac3e8519-c329-49a9-a6b4-e966a505bf57',
     'user',
+    'user@mail.com',
     'user',
     now (),
     now ()
@@ -102,7 +104,7 @@ insert into
     id,
     cart_id,
     product_id,
-    quantity,
+    count,
     created_at,
     updated_at
   )
@@ -121,7 +123,7 @@ insert into
     id,
     cart_id,
     product_id,
-    quantity,
+    count,
     created_at,
     updated_at
   )
@@ -140,7 +142,7 @@ insert into
     id,
     cart_id,
     product_id,
-    quantity,
+    count,
     created_at,
     updated_at
   )
@@ -159,7 +161,7 @@ insert into
     id,
     cart_id,
     product_id,
-    quantity,
+    count,
     created_at,
     updated_at
   )
@@ -195,7 +197,7 @@ values
     '{"method": "cash", "amount": 100}',
     '{"method": "pickup", "address": "123 Main St, Anytown, USA"}',
     'Test order',
-    'PENDING',
+    'OPEN',
     '{}',
     100,
     now (),
@@ -224,7 +226,7 @@ values
     '{"method": "cash", "amount": 100}',
     '{"method": "pickup", "address": "123 Main St, Anytown, USA"}',
     'Test order',
-    'PENDING',
+    'OPEN',
     '{}',
     100,
     now (),

@@ -2,7 +2,6 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, CreateDa
 import { OrderEntity } from './Order.entity';
 import { CartItemEntity } from './CartItem.entity';
 import { CartStatuses } from '../cart/models';
-import { UserEntity } from './User.entity';
 
 @Entity('carts')
 export class CartEntity {
@@ -28,7 +27,4 @@ export class CartEntity {
   @OneToMany(() => CartItemEntity, (cartItems) => cartItems.cart_id)
   @JoinColumn({ name: 'id' })
   items: CartItemEntity[];
-
-  @ManyToOne(() => UserEntity, (user) => user.carts, { nullable: false })
-  user: UserEntity;
 }
