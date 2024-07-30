@@ -3,7 +3,7 @@ import { UserEntity } from './User.entity';
 import { CartEntity } from './Cart.entity';
 import { Delivery, OrderStatuses, Payment } from '../order/models';
 
-@Entity()
+@Entity('orders')
 export class OrderEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

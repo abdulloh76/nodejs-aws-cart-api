@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 't
 import { OrderEntity } from './Order.entity';
 import { CartEntity } from './Cart.entity';
 
-@Entity()
+@Entity('users')
 export class UserEntity  {
   @PrimaryGeneratedColumn()
   id: string;
