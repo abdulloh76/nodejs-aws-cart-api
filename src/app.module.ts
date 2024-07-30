@@ -10,6 +10,7 @@ import { CartItemEntity } from './entities/CartItem.entity';
 import { CartEntity } from './entities/Cart.entity';
 import { OrderEntity } from './entities/Order.entity';
 import { UserEntity } from './entities/User.entity';
+import { ProductEntity } from './entities/Product.entity';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UserEntity } from './entities/User.entity';
         CartEntity,
         OrderEntity,
         UserEntity,
+        ProductEntity
       ],
       synchronize: true,
       ssl: false,

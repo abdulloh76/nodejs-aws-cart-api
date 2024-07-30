@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { OrderEntity } from './Order.entity';
 import { CartItemEntity } from './CartItem.entity';
+import { CartStatuses } from 'src/cart';
 
 @Entity()
 export class CartEntity {
@@ -16,7 +17,7 @@ export class CartEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column({enum: ['OPEN', 'ORDERED'], nullable: false, default: 'OPEN'})
+  @Column({enum: CartStatuses, nullable: false, default: 'OPEN'})
   status: string;
 
   @OneToMany(() => OrderEntity, (cartItems) => cartItems.cart_id)

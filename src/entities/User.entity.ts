@@ -7,8 +7,11 @@ export class UserEntity  {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column({nullable: false})
-  login: string;
+  @Column()
+  name: string;
+
+  @Column()
+  email: string;
 
   @Column({nullable: false})
   password: string;
