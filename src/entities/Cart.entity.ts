@@ -20,11 +20,11 @@ export class CartEntity {
   @Column({ enum: CartStatuses, nullable: false, default: 'OPEN' })
   status: string;
 
-  @OneToMany(() => OrderEntity, (cartItems) => cartItems.cart_id)
+  @OneToMany(() => OrderEntity, (cartItem) => cartItem.cart_id)
   @JoinColumn({ name: 'id' })
   orders: OrderEntity[];
 
-  @OneToMany(() => CartItemEntity, (cartItems) => cartItems.cart_id)
+  @OneToMany(() => CartItemEntity, (cartItem) => cartItem.cart)
   @JoinColumn({ name: 'id' })
   items: CartItemEntity[];
 }
