@@ -23,7 +23,7 @@ export class CartController {
     return {
       statusCode: HttpStatus.OK,
       message: 'OK',
-      data: { cart: cart.items, total: calculateCartTotal(cart) },
+      data: { cart, total: calculateCartTotal(cart) },
     }
   }
 
@@ -36,10 +36,7 @@ export class CartController {
     return {
       statusCode: HttpStatus.OK,
       message: 'OK',
-      data: {
-        cart: cart.items,
-        total: calculateCartTotal(cart),
-      }
+      data: { cart, total: calculateCartTotal(cart) }
     }
   }
 
