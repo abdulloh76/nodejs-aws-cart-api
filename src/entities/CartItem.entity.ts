@@ -1,10 +1,10 @@
-import { Entity, Column, JoinColumn, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToOne, ManyToOne } from 'typeorm';
+import { Entity, Column, JoinColumn, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToOne, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductEntity } from './Product.entity';
 import { CartEntity } from './Cart.entity';
 
 @Entity('cart_items')
 export class CartItemEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @PrimaryColumn('uuid')
@@ -16,16 +16,17 @@ export class CartItemEntity {
   @Column()
   count: number;
 
+  @ManyToOne(() => CartEntity, (cart) => cart.items, { nullable: false })
+  @JoinColumn({name: 'cart_id'})
+  cart: CartEntity;
+
+  @ManyToOne(() => ProductEntity, (product) => product.cartItem, { nullable: false })
+  @JoinColumn({name: 'product_id'})
+  product: ProductEntity;
+
   @CreateDateColumn({nullable: false})
   created_at: Date;
 
   @UpdateDateColumn({nullable: false})
   updated_at: Date;
-
-  @ManyToOne(() => CartEntity, (cart) => cart.items, { nullable: false })
-  cart: CartEntity;
-
-  @ManyToOne(() => ProductEntity, (product) => product.id)
-  @JoinColumn({name: 'product_id'})
-  product: ProductEntity;
 }

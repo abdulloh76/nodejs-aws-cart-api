@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
 import { UserEntity } from './User.entity';
 import { CartEntity } from './Cart.entity';
 import { Delivery, OrderStatuses, Payment } from '../order/models';
@@ -32,17 +32,17 @@ export class OrderEntity {
   @Column()
   total: number;
 
+  @OneToOne(() => CartEntity, (cart) => cart.order, { nullable: false })
+  @JoinColumn({name: 'cart_id'})
+  cart: CartEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.orders, { nullable: false })
+  @JoinColumn({name: 'user_id'})
+  user: UserEntity;
+
   @CreateDateColumn({nullable: false})
   created_at: Date;
 
   @UpdateDateColumn({nullable: false})
   updated_at: Date;
-
-  @ManyToOne(() => CartEntity, (cart) => cart.orders)
-  @JoinColumn({name: 'cart_id'})
-  cart: CartEntity;
-
-  @ManyToOne(() => UserEntity, (user) => user.orders)
-  @JoinColumn({name: 'user_id'})
-  user: UserEntity;
 }

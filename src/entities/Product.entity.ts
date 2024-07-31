@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne } from 'typeorm';
+import { CartItemEntity } from './CartItem.entity';
 
 @Entity('products')
 export class ProductEntity  {
@@ -13,6 +14,10 @@ export class ProductEntity  {
 
   @Column({nullable: false})
   price: number;
+
+  @OneToMany(() => CartItemEntity, (cartItem) => cartItem.product, { nullable: false })
+  @JoinColumn({ name: 'product_id' })
+  cartItem: CartItemEntity;
 
   @Column({nullable: false})
   created_at: Date;

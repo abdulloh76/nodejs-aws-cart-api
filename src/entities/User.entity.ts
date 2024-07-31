@@ -16,17 +16,15 @@ export class UserEntity  {
   @Column({nullable: false})
   password: string;
 
+  @OneToMany(() => CartEntity, (cart) => cart.user)
+  carts: CartEntity[];
+
+  @OneToMany(() => OrderEntity, (order) => order.user)
+  orders: CartEntity[];
+
   @Column({nullable: false})
   created_at: Date;
 
   @Column({nullable: false})
   updated_at: Date;
-
-  @OneToMany(() => OrderEntity, (cartItems) => cartItems.cart_id)
-  @JoinColumn({name: 'id'})
-  orders: OrderEntity[];
-
-  @OneToMany(() => CartEntity, (cart) => cart.user_id)
-  @JoinColumn({name: 'id'})
-  carts: CartEntity[];
 }
