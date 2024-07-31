@@ -44,14 +44,10 @@ func NewCartServiceStack(scope constructs.Construct, id string, props *CartServi
 	})
 
 	// * apigateway instance
-	cartApi := awsapigateway.NewRestApi(stack, jsii.String("Cart-Service-Rest-Api"), &awsapigateway.RestApiProps{
+	awsapigateway.NewLambdaRestApi(stack, jsii.String("Cart-Service-Rest-Api"), &awsapigateway.LambdaRestApiProps{
 		DeployOptions: &awsapigateway.StageOptions{StageName: jsii.String("dev")},
-	})
-
-	cartApi.Root().AddProxy(&awsapigateway.ProxyResourceOptions{
-		DefaultIntegration: awsapigateway.NewLambdaIntegration(
-			cartServiceHandler,
-			&awsapigateway.LambdaIntegrationOptions{Proxy: jsii.Bool(true)}),
+		Handler:       cartServiceHandler,
+		Proxy:         jsii.Bool(true),
 	})
 
 	return stack
