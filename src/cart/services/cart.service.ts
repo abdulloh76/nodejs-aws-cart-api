@@ -21,7 +21,10 @@ export class CartService {
   ) { }
 
   async findByUserId(userId: string): Promise<Cart> {
-    const cart = await this.cartRepository.findOneBy({ user_id: userId });
+    const cart = await this.cartRepository.findOne({ 
+      where: { user_id: userId },
+      relations: { items: { product: true } },
+    });
 
     const cartObj: Cart = {
       id: cart.id,
@@ -40,7 +43,11 @@ export class CartService {
       user_id: userId,
       status: 'OPEN',
     };
-    const cart = await this.cartRepository.create(userCart);
+    const newCart = await this.cartRepository.create(userCart);
+    const cart = await this.cartRepository.findOne({
+      where: { id: newCart.id },
+      relations: { items: { product: true } },
+    });
 
     const cartObj: Cart = {
       id: cart.id,

@@ -23,7 +23,7 @@ export class CartController {
     return {
       statusCode: HttpStatus.OK,
       message: 'OK',
-      data: { cart, total: calculateCartTotal(cart) },
+      data: { cart: cart.items, total: calculateCartTotal(cart) },
     }
   }
 
@@ -37,7 +37,7 @@ export class CartController {
       statusCode: HttpStatus.OK,
       message: 'OK',
       data: {
-        cart,
+        cart: cart.items,
         total: calculateCartTotal(cart),
       }
     }
@@ -46,8 +46,8 @@ export class CartController {
   // @UseGuards(JwtAuthGuard)
   // @UseGuards(BasicAuthGuard)
   @Delete()
-  clearUserCart(@Req() req: AppRequest) {
-    this.cartService.removeByUserId(getUserIdFromRequest(req));
+  async clearUserCart(@Req() req: AppRequest) {
+    await this.cartService.removeByUserId(getUserIdFromRequest(req));
 
     return {
       statusCode: HttpStatus.OK,
