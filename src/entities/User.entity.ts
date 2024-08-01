@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { OrderEntity } from './Order.entity';
 import { CartEntity } from './Cart.entity';
 
@@ -22,9 +22,9 @@ export class UserEntity  {
   @OneToMany(() => OrderEntity, (order) => order.user)
   orders: CartEntity[];
 
-  @Column({nullable: false})
+  @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
 
-  @Column({nullable: false})
+  @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
 }

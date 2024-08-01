@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { v4 } from 'uuid';
 
-import { Cart, CartStatuses } from '../models';
+import { Cart, CartItem, CartStatuses } from '../models';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CartEntity } from '../../entities/Cart.entity';
@@ -68,31 +68,20 @@ export class CartService {
     return this.createByUserId(userId);
   }
 
-  async updateByUserId(userId: string, { items }: Cart): Promise<Cart> {
-    const { id, ...rest } = await this.findOrCreateByUserId(userId);
+  async updateByUserId(userId: string, item: CartItem): Promise<Cart> {
+    const { id, } = await this.findOrCreateByUserId(userId);
 
-    const itemsToUpdate = items.map(item => ({ ...item, cart_id: id }));
-    const updatedItems = []
-    for (const item of itemsToUpdate) {
-      const existingItem = await this.cartItemRepository.findOne({ where: { cart_id: id, product_id: item.product.id } });
-      await this.productRepository.upsert(item.product, ['id']);
-      if (existingItem) {
-        await this.cartItemRepository.update(existingItem.id, { count: item.count });
-        updatedItems.push({...existingItem, count: item.count});
-      } else {
-        const newItem = this.cartItemRepository.create({ cart_id: id, product_id: item.product.id, count: item.count }); 
-        updatedItems.push(newItem);
-      }
+    let updatedItem: CartItem;
+    const existingItem = await this.cartItemRepository.findOne({ where: { product_id: item.product.id } });
+    await this.productRepository.upsert(item.product, ['id']);
+    if (existingItem) {
+      await this.cartItemRepository.update(existingItem.id, { count: item.count });
+      updatedItem = {...existingItem, count: item.count};
+    } else {
+      updatedItem = this.cartItemRepository.create({ cart_id: id, product_id: item.product.id, count: item.count }); 
     }
     
-
-    const updatedCart: Cart = {
-      id,
-      ...rest,
-      items: updatedItems,
-    }
-
-    return { ...updatedCart };
+    return this.findByUserId(userId);
   }
 
   async removeByUserId(userId): Promise<void> {

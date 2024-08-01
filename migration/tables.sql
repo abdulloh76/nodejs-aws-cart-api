@@ -1,26 +1,19 @@
 create table
   users (
     id uuid not null constraint users_pk primary key,
-    login text not null,
+    name text not null,
+    email text not null,
     password text not null,
-    created_at timestamp
-    with
-      time zone not null,
-      updated_at timestamp
-    with
-      time zone not null
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
   );
 
 create table
   carts (
     id uuid not null constraint carts_pk primary key,
     user_id uuid not null,
-    created_at timestamp
-    with
-      time zone not null,
-      updated_at timestamp
-    with
-      time zone not null
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
   );
 
 create table
@@ -29,12 +22,8 @@ create table
     title text not null,
     description text not null,
     price numeric not null,
-    created_at timestamp
-    with
-      time zone not null,
-      updated_at timestamp
-    with
-      time zone not null
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
   );
 
 create table
@@ -42,13 +31,9 @@ create table
     id uuid not null constraint cart_items_pk primary key,
     cart_id uuid not null,
     product_id uuid not null,
-    quantity integer not null,
-    created_at timestamp
-    with
-      time zone not null,
-      updated_at timestamp
-    with
-      time zone not null
+    count integer not null,
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
   );
 
 create table
@@ -62,10 +47,6 @@ create table
     status text not null,
     status_history jsonb not null,
     total numeric not null,
-    created_at timestamp
-    with
-      time zone not null,
-      updated_at timestamp
-    with
-      time zone not null
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
   );

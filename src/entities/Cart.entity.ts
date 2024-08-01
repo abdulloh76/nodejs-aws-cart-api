@@ -26,9 +26,9 @@ export class CartEntity {
   @JoinColumn({ name: 'id' })
   items: CartItemEntity[];
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
 }

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { CartItemEntity } from './CartItem.entity';
 
 @Entity('products')
@@ -19,9 +19,9 @@ export class ProductEntity  {
   @JoinColumn({ name: 'product_id' })
   cartItem: CartItemEntity;
 
-  @Column({nullable: false})
+  @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
 
-  @Column({nullable: false})
+  @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
 }
