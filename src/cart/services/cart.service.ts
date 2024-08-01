@@ -26,6 +26,10 @@ export class CartService {
       relations: { items: { product: true } },
     });
 
+    if (!cart) {
+      return null;
+    }
+
     const cartObj: Cart = {
       id: cart.id,
       user_id: cart.user_id,
@@ -37,19 +41,18 @@ export class CartService {
   }
 
   async createByUserId(userId: string): Promise<Cart> {
-    const id = v4();
-    const userCart = {
-      id,
-      user_id: userId,
-      status: CartStatuses.OPEN,
-    };
-    await this.cartRepository.create(userCart);
+    const cart  = new CartEntity();
+    cart.id = v4();
+    cart.user_id = userId;
+    cart.status = CartStatuses.OPEN;
+
+    await this.cartRepository.save(cart);
 
     return this.findByUserId(userId);
   }
 
   async findOrCreateByUserId(userId: string): Promise<Cart> {
-    const userCart = this.findByUserId(userId);
+    const userCart = await this.findByUserId(userId);
 
     if (userCart) {
       return userCart;
@@ -58,14 +61,18 @@ export class CartService {
   }
 
   async updateByUserId(userId: string, item: CartItem): Promise<Cart> {
-    const { id, } = await this.findOrCreateByUserId(userId);
+    const { id } = await this.findOrCreateByUserId(userId);
 
     const existingItem = await this.cartItemRepository.findOne({ where: { product_id: item.product.id } });
     await this.productRepository.upsert(item.product, ['id']);
     if (existingItem) {
       await this.cartItemRepository.update({ id: existingItem.id }, { count: item.count });
     } else {
-      await this.cartItemRepository.create({ cart_id: id, product_id: item.product.id, count: item.count });
+      const cartItem  = new CartItemEntity();
+      cartItem.cart_id = id;
+      cartItem.product_id = item.product.id;
+      cartItem.count = item.count
+      await this.cartItemRepository.save(cartItem);
     }
 
     return this.findByUserId(userId);
