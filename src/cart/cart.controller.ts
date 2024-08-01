@@ -20,11 +20,7 @@ export class CartController {
   async findUserCart(@Req() req: AppRequest) {
     const cart = await this.cartService.findOrCreateByUserId(getUserIdFromRequest(req));
 
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'OK',
-      data: { cart, total: calculateCartTotal(cart) },
-    }
+    return { cart, total: calculateCartTotal(cart) }
   }
 
   // @UseGuards(JwtAuthGuard)
@@ -33,11 +29,7 @@ export class CartController {
   async updateUserCart(@Req() req: AppRequest, @Body() body) { // TODO: validate body payload...
     const cart = await this.cartService.updateByUserId(getUserIdFromRequest(req), body)
 
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'OK',
-      data: { cart, total: calculateCartTotal(cart) }
-    }
+    return { cart, total: calculateCartTotal(cart) }
   }
 
   // @UseGuards(JwtAuthGuard)
@@ -80,10 +72,6 @@ export class CartController {
     });
     this.cartService.removeByUserId(userId);
 
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'OK',
-      data: { order }
-    }
+    return { order }
   }
 }

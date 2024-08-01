@@ -71,14 +71,12 @@ export class CartService {
   async updateByUserId(userId: string, item: CartItem): Promise<Cart> {
     const { id, } = await this.findOrCreateByUserId(userId);
 
-    let updatedItem: CartItem;
     const existingItem = await this.cartItemRepository.findOne({ where: { product_id: item.product.id } });
     await this.productRepository.upsert(item.product, ['id']);
     if (existingItem) {
-      await this.cartItemRepository.update(existingItem.id, { count: item.count });
-      updatedItem = {...existingItem, count: item.count};
+      await this.cartItemRepository.update({ id: existingItem.id }, { count: item.count });
     } else {
-      updatedItem = this.cartItemRepository.create({ cart_id: id, product_id: item.product.id, count: item.count }); 
+      await this.cartItemRepository.create({ cart_id: id, product_id: item.product.id, count: item.count }); 
     }
     
     return this.findByUserId(userId);
