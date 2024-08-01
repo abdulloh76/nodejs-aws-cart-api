@@ -12,7 +12,7 @@ export class CartEntity {
   @Column({ nullable: false })
   user_id: string;
 
-  @Column({ enum: CartStatuses, nullable: false, default: 'OPEN' })
+  @Column({ enum: CartStatuses, nullable: false, default:CartStatuses.OPEN })
   status: string;
 
   @ManyToOne(() => UserEntity, (user) => user.carts, { nullable: false })

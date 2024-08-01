@@ -21,8 +21,8 @@ export class CartService {
   ) { }
 
   async findByUserId(userId: string): Promise<Cart> {
-    const cart = await this.cartRepository.findOne({ 
-      where: { user_id: userId },
+    const cart = await this.cartRepository.findOne({
+      where: { user_id: userId, status: CartStatuses.OPEN },
       relations: { items: { product: true } },
     });
 
@@ -41,22 +41,11 @@ export class CartService {
     const userCart = {
       id,
       user_id: userId,
-      status: 'OPEN',
+      status: CartStatuses.OPEN,
     };
-    const newCart = await this.cartRepository.create(userCart);
-    const cart = await this.cartRepository.findOne({
-      where: { id: newCart.id },
-      relations: { items: { product: true } },
-    });
+    await this.cartRepository.create(userCart);
 
-    const cartObj: Cart = {
-      id: cart.id,
-      user_id: cart.user_id,
-      items: cart.items,
-      status: cart.status as CartStatuses
-    }
-
-    return cartObj;
+    return this.findByUserId(userId);
   }
 
   async findOrCreateByUserId(userId: string): Promise<Cart> {
@@ -76,10 +65,17 @@ export class CartService {
     if (existingItem) {
       await this.cartItemRepository.update({ id: existingItem.id }, { count: item.count });
     } else {
-      await this.cartItemRepository.create({ cart_id: id, product_id: item.product.id, count: item.count }); 
+      await this.cartItemRepository.create({ cart_id: id, product_id: item.product.id, count: item.count });
     }
-    
+
     return this.findByUserId(userId);
+  }
+
+  async updateStatusByUserId(userId, status: CartStatuses): Promise<void> {
+    await this.cartRepository.update(
+      { user_id: userId },
+      { status }
+    );
   }
 
   async removeByUserId(userId): Promise<void> {
