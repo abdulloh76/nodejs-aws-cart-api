@@ -7,7 +7,6 @@ RUN npm install
 COPY . .
 CMD [ "npm", "run", "build" ]
 
-
 #Stage 2: Run the application
 FROM node:18-alpine As production
 
