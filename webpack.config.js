@@ -6,10 +6,11 @@ module.exports = (options, webpack) => {
 
   return {
     ...options,
-    entry: ['./src/main.ts'],
+    entry: ['./src/main.lambda.ts'],
     externals: [],
     output: {
       ...options.output,
+      filename: 'main.lambda.js',
       libraryTarget: 'commonjs2',
     },
     plugins: [

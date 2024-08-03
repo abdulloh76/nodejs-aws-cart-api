@@ -33,7 +33,7 @@ func NewCartServiceStack(scope constructs.Construct, id string, props *CartServi
 		FunctionName: jsii.String("CartService"),
 		Code:         awslambda.Code_FromAsset(jsii.String("../dist"), nil),
 		Runtime:      awslambda.Runtime_NODEJS_18_X(),
-		Handler:      jsii.String("main.handler"),
+		Handler:      jsii.String("main.lambda.handler"),
 		Environment: &map[string]*string{
 			"DB_HOST":     jsii.String(props.dbHost),
 			"DB_PORT":     jsii.String(props.dbPort),
