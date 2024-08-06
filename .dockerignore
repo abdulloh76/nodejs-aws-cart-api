@@ -1,0 +1,24 @@
+#  unneccessary folders
+cdk_deployment/
+src/
+migration/
+node_modules/
+test/
+
+# unnecessary config files
+README.md
+.prettierrc
+.eslintrc.js
+.env.example
+.env
+webpack.config.js
+
+# unnecessary config files
+Dockerfile
+.dockerignore
+nest-cli.json
+tsconfig.build.json
+tsconfig.json
+.DS_Store
+.git
+.gitignore
